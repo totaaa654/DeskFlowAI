@@ -3,12 +3,14 @@ import { RecentTickets } from "@/components/dashboard/RecentTickets";
 import { StatCard } from "@/components/dashboard/StatCard";
 import { Badge } from "@/components/ui/badge";
 import { filterTickets, recentTickets } from "@/data/tickets";
+import { roleLabels, type Profile } from "@/types/auth";
 
 interface DashboardPageProps {
   searchQuery: string;
+  profile: Profile;
 }
 
-export function DashboardPage({ searchQuery }: DashboardPageProps) {
+export function DashboardPage({ searchQuery, profile }: DashboardPageProps) {
   const filteredTickets = filterTickets(recentTickets, searchQuery);
 
   return (
@@ -17,10 +19,10 @@ export function DashboardPage({ searchQuery }: DashboardPageProps) {
         <section className="mb-5 flex items-start justify-between gap-4">
           <div>
             <h2 id="dashboard-heading" className="text-[22px] font-bold tracking-tight">
-              Good day, Administrator
+              Good day, {profile.full_name.split(" ")[0] || "there"}
             </h2>
             <p className="mt-1 text-xs text-muted-foreground">
-              Here&apos;s what is happening across your service desk today.
+              Here&apos;s what is happening in your {roleLabels[profile.role]} workspace today.
             </p>
           </div>
           <Badge

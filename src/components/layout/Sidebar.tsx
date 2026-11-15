@@ -5,18 +5,20 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { navigationItems } from "@/data/navigation";
 import { cn } from "@/lib/utils";
-import type { PageId } from "@/types/navigation";
+import type { NavigationItem, PageId } from "@/types/navigation";
+import { roleLabels, type Profile } from "@/types/auth";
 
 interface SidebarProps {
   activePage: PageId;
   collapsed: boolean;
   onNavigate: (page: PageId) => void;
   onToggle: () => void;
+  items: NavigationItem[];
+  profile: Profile;
 }
 
-export function Sidebar({ activePage, collapsed, onNavigate, onToggle }: SidebarProps) {
+export function Sidebar({ activePage, collapsed, onNavigate, onToggle, items, profile }: SidebarProps) {
   return (
     <aside
       className={cn(
@@ -49,7 +51,7 @@ export function Sidebar({ activePage, collapsed, onNavigate, onToggle }: Sidebar
           </p>
         )}
         <nav className="space-y-1" aria-label="Administrator workspace">
-          {navigationItems.map((item) => {
+          {items.map((item) => {
             const Icon = item.icon;
             const isActive = item.id === activePage;
             const button = (
@@ -98,8 +100,8 @@ export function Sidebar({ activePage, collapsed, onNavigate, onToggle }: Sidebar
               <ShieldCheck className="size-4" aria-hidden="true" />
             </div>
             <div className="min-w-0">
-              <p className="truncate text-xs font-semibold">Administrator</p>
-              <p className="truncate text-[10px] text-muted-foreground">Full workspace access</p>
+              <p className="truncate text-xs font-semibold">{roleLabels[profile.role]}</p>
+              <p className="truncate text-[10px] text-muted-foreground">Role-based workspace</p>
             </div>
           </div>
         )}

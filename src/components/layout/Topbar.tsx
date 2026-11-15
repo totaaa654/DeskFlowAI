@@ -1,4 +1,4 @@
-import { Bell, Moon, Search, Sun } from "lucide-react";
+import { Bell, LogOut, Moon, Search, Sun } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/tooltip";
 import type { Theme } from "@/hooks/useTheme";
 import type { NavigationItem, PageId } from "@/types/navigation";
+import { roleLabels, type Profile } from "@/types/auth";
 
 interface TopbarProps {
   page: NavigationItem;
@@ -18,6 +19,8 @@ interface TopbarProps {
   onSearchChange: (query: string) => void;
   onToggleTheme: () => void;
   onNavigate: (page: PageId) => void;
+  profile: Profile;
+  onSignOut: () => void;
 }
 
 export function Topbar({
@@ -27,6 +30,8 @@ export function Topbar({
   onSearchChange,
   onToggleTheme,
   onNavigate,
+  profile,
+  onSignOut,
 }: TopbarProps) {
   const isDashboard = page.id === "dashboard";
 
@@ -95,14 +100,22 @@ export function Topbar({
         <div className="flex items-center gap-2.5" aria-label="Signed in account">
           <Avatar className="size-9 rounded-lg">
             <AvatarFallback className="rounded-lg bg-primary text-xs font-bold text-primary-foreground">
-              JG
+              {profile.full_name.split(/\s+/).map((part) => part[0]).join("").slice(0, 2).toUpperCase() || "DF"}
             </AvatarFallback>
           </Avatar>
           <div className="hidden min-w-0 lg:block">
-            <p className="truncate text-xs font-semibold">Jordan Galang</p>
-            <p className="truncate text-[10px] text-muted-foreground">IT Administrator</p>
+            <p className="max-w-32 truncate text-xs font-semibold">{profile.full_name || profile.email}</p>
+            <p className="truncate text-[10px] text-muted-foreground">{roleLabels[profile.role]}</p>
           </div>
         </div>
+        <Tooltip delayDuration={150}>
+          <TooltipTrigger asChild>
+            <Button variant="ghost" size="icon-lg" type="button" onClick={onSignOut} aria-label="Sign out" className="size-9 text-muted-foreground hover:text-destructive">
+              <LogOut className="size-4" />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>Sign out</TooltipContent>
+        </Tooltip>
       </div>
     </header>
   );

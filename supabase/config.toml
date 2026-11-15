@@ -1,0 +1,35 @@
+project_id = "deskflow-ai"
+
+[auth]
+enable_signup = false
+additional_redirect_urls = ["deskflowai://auth/callback"]
+
+[functions.admin-users]
+verify_jwt = true
+
+[remotes.production]
+project_id = "knjzeleqvsyfdyobddeq"
+
+[remotes.production.auth]
+site_url = "http://localhost:3000"
+enable_signup = false
+additional_redirect_urls = ["deskflowai://auth/callback"]
+
+[remotes.production.auth.email]
+enable_confirmations = true
+max_frequency = "1m0s"
+otp_length = 8
+
+[remotes.production.auth.mfa.totp]
+enroll_enabled = true
+verify_enabled = true
+
+[remotes.production.auth.sms]
+enable_confirmations = true
+
+[remotes.production.db.pooler]
+default_pool_size = 15
+max_client_conn = 200
+
+[remotes.production.storage.vector]
+enabled = false

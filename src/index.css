@@ -170,3 +170,42 @@
   background-clip: padding-box;
 }
 
+.auth-cloud-panel {
+  background:
+    radial-gradient(circle at 12% 18%, rgb(56 189 248 / 32%), transparent 28%),
+    radial-gradient(circle at 88% 82%, rgb(37 99 235 / 50%), transparent 34%),
+    linear-gradient(145deg, #0757c8 0%, #0b72df 45%, #123b91 100%);
+}
+
+.auth-cloud-panel::before {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgb(255 255 255 / 5%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 5%) 1px, transparent 1px);
+  background-size: 48px 48px;
+  content: "";
+  mask-image: linear-gradient(to bottom right, black, transparent 78%);
+}
+
+.auth-orb {
+  position: absolute;
+  border: 1px solid rgb(255 255 255 / 16%);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 8%);
+}
+
+.auth-orb-one {
+  top: -80px;
+  right: -100px;
+  width: 360px;
+  height: 360px;
+}
+
+.auth-orb-two {
+  right: 8%;
+  bottom: -160px;
+  width: 420px;
+  height: 420px;
+}
+
